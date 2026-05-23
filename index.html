@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recettes de Maman</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Recettes de Maman</h1>
+    <p>Le menu de toutes les recettes</p>
+</header>
+
+<input type="text" id="search" placeholder="🔍 Rechercher une recette...">
+
+<ul id="suggestions"></ul>
+
+<main class="container">
+
+    <article class="card">
+        <h2>Fondant au chocolat</h2>
+        <img src="image/fondant_au_chocolat.jpg" alt="Fondant au chocolat">
+        <a href="FondantAuChocolat.html">Voir la recette</a>
+    </article>
+
+    <article class="card">
+        <h2>Tiramisu</h2>
+        <img src="image/Tiramisu.jpg" alt="Tiramisu">
+        <a href="Tiramisu.html">Voir la recette</a>
+    </article>
+
+    <article class="card">
+        <h2>Gateau aux pommes</h2>
+        <img src="image/TarteAuPomme.jpg" alt="Tarte aux pommes">
+        <a href="#">Voir la recette</a>
+    </article>
+
+    <article class="card">
+        <h2>Mousse au chocolat</h2>
+        <img src="image/MousseAuChocolat.jpg" alt="Mousse au chocolat">
+        <a href="#">Voir la recette</a>
+    </article>
+
+    <article class="card">
+        <h2>Crumble</h2>
+        <img src="image/Crumble.jpg" alt="Crumble">
+        <a href="#">Voir la recette</a>
+    </article>
+
+</main>
+
+<script>
+const recettes = [
+    "Fondant au chocolat",
+    "Tiramisu",
+    "Gateau aux pommes",
+    "Mousse au chocolat",
+    "Crumble"
+];
+
+const input = document.getElementById("search");
+const suggestions = document.getElementById("suggestions");
+
+input.addEventListener("input", function() {
+    const valeur = this.value.toLowerCase();
+    suggestions.innerHTML = "";
+
+    if (valeur.length === 0) return;
+
+    const resultats = recettes.filter(recette =>
+        recette.toLowerCase().includes(valeur)
+    );
+
+    resultats.forEach(recette => {
+        const li = document.createElement("li");
+        li.textContent = recette;
+
+        li.addEventListener("click", () => {
+            input.value = recette;
+            suggestions.innerHTML = "";
+        });
+
+        suggestions.appendChild(li);
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    const input = document.getElementById("search");
+    const cards = document.querySelectorAll(".card");
+
+    input.addEventListener("input", function() {
+        const valeur = this.value.toLowerCase();
+
+        cards.forEach(card => {
+            const titre = card.querySelector("h2").textContent.toLowerCase();
+
+            if (titre.includes(valeur)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+    });
+
+});
+</script>
+
+
+</body>
+</html>
